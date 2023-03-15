@@ -1,4 +1,12 @@
-def main():
-    print("Hello")
+import kivy
+from kivy.app import App
+from kivy.uix.label import Label
 
-main()
+
+class MyApp(App):
+    def build(self):
+        return Label(text="DAWID")
+
+
+if __name__ == "__main__":
+    MyApp().run()
