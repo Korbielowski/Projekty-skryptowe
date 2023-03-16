@@ -16,7 +16,7 @@ Project Plan:
     1. Adding spendings through photos of receipt
     2. Budget calculation
     3. Charts of spendings and incomes
-    4. Simple app settings (ability to change the theme colour of the app, charts options)
+    4. Simple app settings (ability to change the colour theme of the app, charts options)
     5. Push notifications
 - June:
     1. Bug fixing
