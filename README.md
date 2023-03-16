@@ -3,21 +3,21 @@ It's a project for Projkety skryptowe classes. I will make an mobile app called 
 
 Project Plan:
 - March:
-    a) Designing UI
-    b) App prototype with simple functions
-    c) Finding needed tools
-    d) Creating categories of spendings
+    1. Designing UI
+    2. App prototype with simple functions
+    3. Finding needed tools
+    4. Creating categories of spendings
 - April:
-    a) Adding spendings and sources of income
-    b) Ability for user to add their own categories
-    c) Ability to edit existing categories and spendings
-    d) Sorting and filtering categories and spendings
+    1. Adding spendings and sources of income
+    2. Ability for user to add their own categories
+    3. Ability to edit existing categories and spendings
+    4. Sorting and filtering categories and spendings
 - May:
-    a) Adding spendings through photos of receipt
-    b) Budget calculation
-    c) Charts of spendings and incomes
-    d) Simple app settings (ability to change the theme colour of the app, charts options)
-    e) Push notifications
+    1. Adding spendings through photos of receipt
+    2. Budget calculation
+    3. Charts of spendings and incomes
+    4. Simple app settings (ability to change the theme colour of the app, charts options)
+    5. Push notifications
 - June:
-    a) Bug fixing
-    b) creating a project presentation
+    1. Bug fixing
+    2. creating a project presentation
