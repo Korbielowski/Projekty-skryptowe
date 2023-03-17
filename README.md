@@ -1,5 +1,5 @@
 # Projekty-skryptowe
-It's a project for projkety skryptowe classes. I will make an mobile app called Budget for Dummies, which will help with peoples' budgets by illustrating their income and spendings.
+It's a project for projekty skryptowe classes. I will make an mobile app called Budget for Dummies, which will help with peoples' budgets by illustrating their income and spendings.
 
 Project Plan:
 - March:
