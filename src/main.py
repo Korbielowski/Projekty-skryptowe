@@ -1,12 +1,14 @@
 import kivy
 from kivy.app import App
 from kivy.uix.label import Label
+from kivy.uix.button import Button
 
 
-class MyApp(App):
+class Budget_for_dummies(App):
     def build(self):
-        return Label(text="DAWID")
+        Button(text="opcje", font_size="14", background_color=(1, 1, 1, 1))
+        return Label(text="Budget for Dummies")
 
 
 if __name__ == "__main__":
-    MyApp().run()
+    Budget_for_dummies().run()
