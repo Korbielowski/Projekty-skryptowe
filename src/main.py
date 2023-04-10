@@ -44,6 +44,27 @@ WindowManager:
             text: 'more'
             icon: "dots-horizontal"
 
+            AnchorLayout:
+                anchor_x: "right"
+                anchor_y: "top"
+                MDRectangleFlatIconButton:
+                    icon: "cog"
+                    text: "Settings"
+
+            AnchorLayout:
+                anchor_x: "center"
+                anchor_y: "top"
+                MDRectangleFlatIconButton:
+                    icon: "information"
+                    text: "Info"
+
+            AnchorLayout:
+                anchor_x: "left"
+                anchor_y: "top"
+                MDRectangleFlatIconButton:
+                    icon: "palette"
+                    text: "App Theme"
+
 <SecondScreen>:
     name: 'second'
     GridLayout:
