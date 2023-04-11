@@ -33,6 +33,8 @@ WindowManager:
             MDFloatingActionButton:
                 icon: "plus"
                 pos_hint: {'center_x': 0.95,'center_y': 0.075}
+                icon_color: "grey"
+                md_bg_color: "white"
 
         MDBottomNavigationItem:
             name: 'stats'
@@ -44,26 +46,33 @@ WindowManager:
             text: 'more'
             icon: "dots-horizontal"
 
-            AnchorLayout:
-                anchor_x: "right"
-                anchor_y: "top"
+            StackLayout:
                 MDRectangleFlatIconButton:
                     icon: "cog"
                     text: "Settings"
+                    size_hint: 0.3333, 0.3333
+                    theme_text_color: "Custom"
+                    line_color: "grey"
+                    text_color: "grey"
+                    icon_color: "grey"
 
-            AnchorLayout:
-                anchor_x: "center"
-                anchor_y: "top"
                 MDRectangleFlatIconButton:
                     icon: "information"
                     text: "Info"
+                    size_hint: 0.3333, 0.3333
+                    theme_text_color: "Custom"
+                    line_color: "grey"
+                    text_color: "grey"
+                    icon_color: "grey"
 
-            AnchorLayout:
-                anchor_x: "left"
-                anchor_y: "top"
                 MDRectangleFlatIconButton:
                     icon: "palette"
                     text: "App Theme"
+                    size_hint: 0.3333, 0.3333
+                    theme_text_color: "Custom"
+                    line_color: "grey"
+                    text_color: "grey"
+                    icon_color: "grey"
 
 <SecondScreen>:
     name: 'second'
@@ -91,6 +100,8 @@ class WindowManager(ScreenManager):
 
 class Budget_for_dummies(MDApp):
     def build(self):
+        self.theme_cls.material_style = "M3"
+        self.theme_cls.theme_style = "Dark"
         return Builder.load_string(KV)
 
     def wysun(self):
