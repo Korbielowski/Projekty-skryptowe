@@ -1,4 +1,5 @@
 from kivy.lang import Builder
+from kivy.core.window import Window
 
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
@@ -88,36 +89,51 @@ WindowManager:
             name: "Spendings"
             text: "Spendings"
             icon: "cash"
+            
+            BoxLayout:
+                orientation: 'vertical'
 
-            StackLayout:
-                MDRectangleFlatIconButton:
-                    icon: "train-car"
-                    text: "Transportation"
-                    size_hint: 0.3333, 0.3333
+                MDTextField:
+                    id: amount
+                    helper_text: "Enter amount"
+                    helper_text_mode: "on_error"
+                    icon_right: "currency-eur"
+                    multiline: False
+                    size_hint: 0.2, 0.1
+                    pos_hint: {'center_x': 0.5,'center_y': 0.1}
 
-                MDRectangleFlatIconButton:
-                    icon: "lightning-bolt"
-                    text: "Electricity"
-                    size_hint: 0.3333, 0.3333
+                StackLayout:
+                    MDRectangleFlatIconButton:
+                        icon: "train-car"
+                        text: "Transportation"
+                        size_hint: 0.3333, 0.3333
 
-                MDRectangleFlatIconButton:
-                    icon: "cart"
-                    text: "Groceries"
-                    size_hint: 0.3333, 0.3333
-                
-                MDRectangleFlatIconButton:
-                    icon: "theater"
-                    text: "Entertainment"
-                    size_hint: 0.3333, 0.3333
+                    MDRectangleFlatIconButton:
+                        icon: "lightning-bolt"
+                        text: "Electricity"
+                        size_hint: 0.3333, 0.3333
+
+                    MDRectangleFlatIconButton:
+                        icon: "cart"
+                        text: "Groceries"
+                        size_hint: 0.3333, 0.3333
+                    
+                    MDRectangleFlatIconButton:
+                        icon: "theater"
+                        text: "Entertainment"
+                        size_hint: 0.3333, 0.3333
+
+                MDFillRoundFlatButton:
+                    text: "Add spending"
+                    pos_hint: {"center_x": 0.5,"center_y": 0.5}
+                    on_release: 
+                        app.root.current = "main"
+                        app.add_spending(amount.text)
 
         MDBottomNavigationItem:
             name: "Income"
             text: "Income"
             icon: "cash-100"
-            # MDFillRoundFlatButton:
-            #     text: "cofnij"
-            #     pos_hint: {"center_x": 0.5,"center_y": 0.5}
-            #     on_release: app.root.current = "main"
 """
 
 
@@ -135,9 +151,18 @@ class WindowManager(ScreenManager):
 
 class Budget_for_dummies(MDApp):
     def build(self):
+        Window.top = 100
+        Window.right = 100
+        Window.size = (450, 700)
         self.theme_cls.material_style = "M3"
         self.theme_cls.theme_style = "Dark"
         return Builder.load_string(KV)
+
+    def add_spending(self, amount):
+        if isinstance(amount, float):
+            print("pieniądze")
+        else:
+            print("błąd")
 
 
 if __name__ == "__main__":
