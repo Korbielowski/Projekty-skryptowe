@@ -14,15 +14,16 @@ WindowManager:
     SecondScreen:
 
 <MainScreen>:
-    name: 'main'
+    name: "main"
+
     MDBottomNavigation:
         selected_color_background: "orange"
         text_color_active: "lightgrey"
 
         MDBottomNavigationItem:
-            name: 'home'
-            text: 'home'
-            icon: 'home'
+            name: "home"
+            text: "home"
+            icon: "home"
 
             MDLabel:
                 text: "There is nothing here"
@@ -30,20 +31,22 @@ WindowManager:
                 valign: "center"
                 theme_text_color: "Custom"
                 text_color: "grey"
+
             MDFloatingActionButton:
                 icon: "plus"
-                pos_hint: {'center_x': 0.95,'center_y': 0.075}
+                pos_hint: {"center_x": 0.95,"center_y": 0.075}
                 icon_color: "grey"
                 md_bg_color: "white"
+                on_release: app.root.current = "second"
 
         MDBottomNavigationItem:
-            name: 'stats'
-            text: 'stats'
+            name: "stats"
+            text: "stats"
             icon: "chart-bar"
 
         MDBottomNavigationItem:
-            name: 'more'
-            text: 'more'
+            name: "more"
+            text: "more"
             icon: "dots-horizontal"
 
             StackLayout:
@@ -75,14 +78,46 @@ WindowManager:
                     icon_color: "grey"
 
 <SecondScreen>:
-    name: 'second'
-    GridLayout:
-        cols: 2
-        MDFillRoundFlatButton:
-            text: "cofnij"
-            md_bg_color: [0, 0, 1, 1]
-            pos_hint: {'center_x': 0.5,'center_y': 0.5}
-            on_release: app.root.current = 'main'
+    name: "second"
+
+    MDBottomNavigation:
+        selected_color_background: "orange"
+        text_color_active: "lightgrey"
+
+        MDBottomNavigationItem:
+            name: "Spendings"
+            text: "Spendings"
+            icon: "cash"
+
+            StackLayout:
+                MDRectangleFlatIconButton:
+                    icon: "train-car"
+                    text: "Transportation"
+                    size_hint: 0.3333, 0.3333
+
+                MDRectangleFlatIconButton:
+                    icon: "lightning-bolt"
+                    text: "Electricity"
+                    size_hint: 0.3333, 0.3333
+
+                MDRectangleFlatIconButton:
+                    icon: "cart"
+                    text: "Groceries"
+                    size_hint: 0.3333, 0.3333
+                
+                MDRectangleFlatIconButton:
+                    icon: "theater"
+                    text: "Entertainment"
+                    size_hint: 0.3333, 0.3333
+
+        MDBottomNavigationItem:
+            name: "Income"
+            text: "Income"
+            icon: "cash-100"
+            # MDFillRoundFlatButton:
+            #     text: "cofnij"
+            #     pos_hint: {"center_x": 0.5,"center_y": 0.5}
+            #     on_release: app.root.current = "main"
 """
 
 
@@ -103,12 +138,6 @@ class Budget_for_dummies(MDApp):
         self.theme_cls.material_style = "M3"
         self.theme_cls.theme_style = "Dark"
         return Builder.load_string(KV)
-
-    def wysun(self):
-        bottom = MDListBottomSheet()
-        for i in range(1, 11):
-            bottom.add_item(f"Standart Item {i}", lambda x, y=MainScreen(): y.zmien())
-        bottom.open()
 
 
 if __name__ == "__main__":
