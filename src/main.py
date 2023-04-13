@@ -14,6 +14,8 @@ KV = """
 WindowManager:
     MainScreen:
     SecondScreen:
+    SettingsScreen:
+    InfoScreen:
 
 <MainScreen>:
     name: "main"
@@ -36,7 +38,7 @@ WindowManager:
 
             MDFloatingActionButton:
                 icon: "plus"
-                pos_hint: {"center_x": 0.95,"center_y": 0.075}
+                pos_hint: {"center_x": 0.915,"center_y": 0.06}
                 icon_color: "grey"
                 md_bg_color: "white"
                 on_release: app.root.current = "second"
@@ -60,6 +62,7 @@ WindowManager:
                     line_color: "grey"
                     text_color: "grey"
                     icon_color: "grey"
+                    on_release: app.root.current = "settings_screen"
 
                 MDRectangleFlatIconButton:
                     icon: "information"
@@ -69,6 +72,7 @@ WindowManager:
                     line_color: "grey"
                     text_color: "grey"
                     icon_color: "grey"
+                    on_release: app.root.current = "info_screen"
 
                 MDRectangleFlatIconButton:
                     icon: "palette"
@@ -95,11 +99,12 @@ WindowManager:
                 orientation: 'vertical'
 
                 MDTextField:
-                    id: amount
+                    id: amount_spending
                     helper_text: "Enter amount"
                     helper_text_mode: "on_error"
                     icon_right: "currency-eur"
                     multiline: False
+                    required: True
                     size_hint: 0.2, 0.1
                     pos_hint: {'center_x': 0.5,'center_y': 0.1}
 
@@ -153,7 +158,8 @@ WindowManager:
                     pos_hint: {"center_x": 0.5,"center_y": 0.5}
                     on_release: 
                         app.root.current = "main"
-                        root.add_spending(amount.text, chip_box.children)
+                        root.add_spending(amount_spending.text, chip_box.children)
+                        amount_spending.text=""
 
         MDBottomNavigationItem:
             name: "Income"
@@ -164,11 +170,12 @@ WindowManager:
                 orientation: 'vertical'
 
                 MDTextField:
-                    id: amount
+                    id: amount_income
                     helper_text: "Enter amount"
                     helper_text_mode: "on_error"
                     icon_right: "currency-eur"
                     multiline: False
+                    required: True
                     size_hint: 0.2, 0.1
                     pos_hint: {'center_x': 0.5,'center_y': 0.1}
 
@@ -176,37 +183,16 @@ WindowManager:
                     id: chip_box
 
                     MDChip:
-                        id: job
+                        id: salary
                         icon_right: "briefcase-outline"
-                        text: "Job"
+                        text: "Salary"
                         size_hint: 0.3333, 0.3333
                         on_active: if self.active: root.remove_marks(self)
 
                     MDChip:
-                        id: electricity
-                        icon_right: "lightning-bolt"
-                        text: "Electricity"
-                        size_hint: 0.3333, 0.3333
-                        on_active: if self.active: root.remove_marks(self)
-
-                    MDChip:
-                        id: groceries
-                        icon_right: "cart"
-                        text: "Groceries"
-                        size_hint: 0.3333, 0.3333
-                        on_active: if self.active: root.remove_marks(self)
-
-                    MDChip:
-                        id: entertainment
-                        icon_right: "theater"
-                        text: "Entertainment"
-                        size_hint: 0.3333, 0.3333
-                        on_active: if self.active: root.remove_marks(self)
-
-                    MDChip:
-                        id: clothes
-                        icon_right: "tshirt-crew-outline"
-                        text: "Clothes"
+                        id: intrest
+                        icon_right: "piggy-bank-outline"
+                        text: "Intrest"
                         size_hint: 0.3333, 0.3333
                         on_active: if self.active: root.remove_marks(self)
 
@@ -222,8 +208,20 @@ WindowManager:
                     pos_hint: {"center_x": 0.5,"center_y": 0.5}
                     on_release: 
                         app.root.current = "main"
-                        root.add_income(amount.text, chip_box.children)
+                        root.add_income(amount_income.text, chip_box.children)
+                        amount_income.text=""
 
+<SettingsScreen>:
+    name: "settings_screen"
+
+    MDLabel:
+        text: "Tutaj będą opcje"
+
+<InfoScreen>:
+    name: "info_screen"
+
+    MDLabel:
+        text: "Tutaj będą informacje o aplikacji"
 """
 
 
@@ -272,6 +270,14 @@ class SecondScreen(MDScreen):
                     else:
                         self.stored_spending.put(chip.text, amount=self.amount)
                         # print("Stworzono")
+
+
+class SettingsScreen(MDScreen):
+    pass
+
+
+class InfoScreen(MDScreen):
+    pass
 
 
 class WindowManager(ScreenManager):

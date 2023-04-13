@@ -11,13 +11,12 @@ Project Plan:
     1. Adding spendings and sources of income
     2. Ability for user to add their own categories
     3. Ability to edit existing categories and spendings
-    4. Sorting and filtering categories and spendings
+    4. Charts of spendings and incomes
 - May:
     1. Adding spendings through photos of receipt
     2. Budget calculation
-    3. Charts of spendings and incomes
-    4. Simple app settings (ability to change the theme colour of the app, charts options)
-    5. Push notifications
+    3. Simple app settings (ability to change the theme colour of the app, charts options)
+    4. Push notifications
 - June:
     1. Bug fixing
     2. creating a project presentation
