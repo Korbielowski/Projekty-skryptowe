@@ -16,6 +16,7 @@ WindowManager:
     SecondScreen:
     SettingsScreen:
     InfoScreen:
+    AppThemeScreen:
 
 <MainScreen>:
     name: "main"
@@ -30,7 +31,7 @@ WindowManager:
             icon: "home"
 
             MDLabel:
-                text: "There is nothing here"
+                text: "Main menu"
                 halign: "center"
                 valign: "center"
                 theme_text_color: "Custom"
@@ -47,6 +48,13 @@ WindowManager:
             name: "stats"
             text: "stats"
             icon: "chart-bar"
+
+            MDLabel:
+                text: "Charts and stats"
+                halign: "center"
+                valign: "center"
+                theme_text_color: "Custom"
+                text_color: "grey"
 
         MDBottomNavigationItem:
             name: "more"
@@ -82,6 +90,7 @@ WindowManager:
                     line_color: "grey"
                     text_color: "grey"
                     icon_color: "grey"
+                    on_release: app.root.current = "app_theme_screen"
 
 <SecondScreen>:
     name: "second"
@@ -155,6 +164,7 @@ WindowManager:
 
                 MDFillRoundFlatButton:
                     text: "Add spending"
+                    md_bg_color: "grey"
                     pos_hint: {"center_x": 0.5,"center_y": 0.5}
                     on_release: 
                         app.root.current = "main"
@@ -205,6 +215,7 @@ WindowManager:
 
                 MDFillRoundFlatButton:
                     text: "Add income"
+                    md_bg_color: "grey"
                     pos_hint: {"center_x": 0.5,"center_y": 0.5}
                     on_release: 
                         app.root.current = "main"
@@ -215,13 +226,49 @@ WindowManager:
     name: "settings_screen"
 
     MDLabel:
-        text: "Tutaj będą opcje"
+        text: "Settings"
+        halign: "center"
+        valign: "center"
+        theme_text_color: "Custom"
+        text_color: "grey"
+
+    MDFillRoundFlatButton:
+        text: "Back"
+        md_bg_color: "grey"
+        pos_hint: {"center_x": 0.5,"center_y": 0.3}
+        on_release: app.root.current = "main"
 
 <InfoScreen>:
     name: "info_screen"
 
     MDLabel:
-        text: "Tutaj będą informacje o aplikacji"
+        text: "App info"
+        halign: "center"
+        valign: "center"
+        theme_text_color: "Custom"
+        text_color: "grey"
+        
+    MDFillRoundFlatButton:
+        text: "Back"
+        md_bg_color: "grey"
+        pos_hint: {"center_x": 0.5,"center_y": 0.3}
+        on_release: app.root.current = "main"
+
+<AppThemeScreen>:
+    name: "app_theme_screen"
+
+    MDLabel:
+        text: "App themes"
+        halign: "center"
+        valign: "center"
+        theme_text_color: "Custom"
+        text_color: "grey"
+        
+    MDFillRoundFlatButton:
+        text: "Back"
+        md_bg_color: "grey"
+        pos_hint: {"center_x": 0.5,"center_y": 0.3}
+        on_release: app.root.current = "main"
 """
 
 
@@ -277,6 +324,10 @@ class SettingsScreen(MDScreen):
 
 
 class InfoScreen(MDScreen):
+    pass
+
+
+class AppThemeScreen(MDScreen):
     pass
 
 
