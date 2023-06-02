@@ -1,0 +1,460 @@
+#:kivy 2.1.0
+#:import datetime datetime
+<MainScreen>:
+    # on_enter: print("hejka")
+
+    # MDBottomNavigation:
+    #     selected_color_background: "orange"
+    #     text_color_active: "lightgrey"
+
+    #     MDBottomNavigationItem:
+    #         id: "home"
+    #         name: "home"
+    #         text: "home"
+    #         icon: "home"
+    #         on_enter: root.load_income_spending()
+            
+    #         # ScrollView:
+    #         #     do_scroll_x: False
+    #         #     do_scroll_y: True
+    #         #     # size_hint: 1, None
+    #         #     # size: Window.width, Window.height
+
+    #         #     GridLayout:
+    #         #         id: card_layout
+    #         #         clos: 1
+    #         #         rows: 30
+    #         #         size_hint: 1, None
+    #         #         # minimum_height: 
+                    
+    #         MDFloatingActionButton:
+    #             icon: "plus"
+    #             pos_hint: {"center_x": 0.915,"center_y": 0.06}
+    #             icon_color: "grey"
+    #             md_bg_color: "white"
+    #             on_release: app.root.current = "second"
+
+    #     MDBottomNavigationItem:
+    #         name: "stats"
+    #         text: "stats"
+    #         icon: "chart-bar"
+    #         on_pre_enter:
+    #             root.load_chart()
+
+    #         BoxLayout:
+    #             id: box
+    #             size_hint_y: .8
+    #             pos_hint: {"top":1}
+
+            # MDLabel:
+            #     text: "Charts and stats"
+            #     halign: "center"
+            #     valign: "center"
+            #     theme_text_color: "Custom"
+            #     text_color: "grey"
+
+        # MDBottomNavigationItem:
+        #     name: "more"
+        #     text: "more"
+        #     icon: "dots-horizontal"
+
+        #     StackLayout:
+        #         MDRectangleFlatIconButton:
+        #             icon: "cog"
+        #             text: "Settings"
+        #             size_hint: 0.3333, 0.3333
+        #             theme_text_color: "Custom"
+        #             line_color: "grey"
+        #             text_color: "grey"
+        #             icon_color: "grey"
+        #             on_release: app.root.current = "settings_screen"
+
+        #         MDRectangleFlatIconButton:
+        #             icon: "information"
+        #             text: "Info"
+        #             size_hint: 0.3333, 0.3333
+        #             theme_text_color: "Custom"
+        #             line_color: "grey"
+        #             text_color: "grey"
+        #             icon_color: "grey"
+        #             on_release: app.root.current = "info_screen"
+
+        #         MDRectangleFlatIconButton:
+        #             icon: "palette"
+        #             text: "App Theme"
+        #             size_hint: 0.3333, 0.3333
+        #             theme_text_color: "Custom"
+        #             line_color: "grey"
+        #             text_color: "grey"
+        #             icon_color: "grey"
+        #             on_release: app.root.current = "app_theme_screen"
+
+<SecondScreen>:
+    
+    MDBottomNavigation:
+        selected_color_background: "orange"
+        text_color_active: "lightgrey"
+
+        MDBottomNavigationItem:
+            name: "Spendings"
+            text: "Spendings"
+            icon: "cash"
+            
+            BoxLayout:
+                orientation: 'vertical'
+
+                MDTextField:
+                    id: amount_spending
+                    helper_text: "Enter amount"
+                    helper_text_mode: "on_error"
+                    icon_right: "currency-eur"
+                    multiline: False
+                    required: True
+                    size_hint: 0.3, 0.2
+                    pos_hint: {'center_x': 0.5,'center_y': 0.2}
+
+                StackLayout:
+                    id: spending_box
+
+                    MDChip:
+                        id: transportation
+                        icon_right: "train-car"
+                        text: "Transportation"
+                        size_hint: 0.3333, 0.3333
+                        on_active: if self.active: root.remove_marks(self, "spending_box")
+
+                    MDChip:
+                        id: electricity
+                        icon_right: "lightning-bolt"
+                        text: "Electricity"
+                        size_hint: 0.3333, 0.3333
+                        on_active: if self.active: root.remove_marks(self, "spending_box")
+
+                    MDChip:
+                        id: groceries
+                        icon_right: "cart"
+                        text: "Groceries"
+                        size_hint: 0.3333, 0.3333
+                        on_active: if self.active: root.remove_marks(self, "spending_box")
+
+                    MDChip:
+                        id: entertainment
+                        icon_right: "theater"
+                        text: "Entertainment"
+                        size_hint: 0.3333, 0.3333
+                        on_active: if self.active: root.remove_marks(self, "spending_box")
+
+                    MDChip:
+                        id: clothes
+                        icon_right: "tshirt-crew-outline"
+                        text: "Clothes"
+                        size_hint: 0.3333, 0.3333
+                        on_active: if self.active: root.remove_marks(self, "spending_box")
+
+                    MDChip:
+                        id: gift
+                        icon_right: "gift-outline"
+                        text: "Gift"
+                        size_hint: 0.3333, 0.3333
+                        on_active: if self.active: root.remove_marks(self, "spending_box")
+
+                    MDChip:
+                        id: user
+                        icon_right: "plus"
+                        text: "Custom"
+                        size_hint: 0.3333, 0.3333
+                        on_press:
+                            root.remove_marks(self, "spending_box")
+                            app.root.current = "custom_spending"
+
+                MDFillRoundFlatButton:
+                    text: "Add spending"
+                    md_bg_color: "grey"
+                    pos_hint: {"center_x": 0.5,"center_y": 0.8}
+                    on_release:
+                        root.add_income_or_spending(amount_spending.text, spending_box.children, "spending_box", datetime.date.today())
+                        root.remove_marks(self, "spending_box")
+                        amount_spending.text=""
+                        app.root.current = "main"
+
+                MDFillRoundFlatButton:
+                    text: "Back"
+                    md_bg_color: "grey"
+                    pos_hint: {"center_x": 0.5,"center_y": 0.2}
+                    on_release: 
+                        root.remove_marks(self, "spending_box")
+                        app.root.current = "main"
+
+        MDBottomNavigationItem:
+            name: "Income"
+            text: "Income"
+            icon: "cash-100"
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                MDTextField:
+                    id: amount_income
+                    helper_text: "Enter amount"
+                    helper_text_mode: "on_error"
+                    icon_right: "currency-eur"
+                    multiline: False
+                    required: True
+                    size_hint: 0.3, 0.2
+                    pos_hint: {'center_x': 0.5,'center_y': 0.2}
+
+                StackLayout:
+                    id: income_box
+
+                    MDChip:
+                        id: salary
+                        icon_right: "briefcase-outline"
+                        text: "Salary"
+                        size_hint: 0.3333, 0.3333
+                        on_active: if self.active: root.remove_marks(self, "income_box")
+
+                    MDChip:
+                        id: intrest
+                        icon_right: "piggy-bank-outline"
+                        text: "Intrest"
+                        size_hint: 0.3333, 0.3333
+                        on_active: if self.active: root.remove_marks(self, "income_box")
+
+                    MDChip:
+                        id: gift
+                        icon_right: "gift-outline"
+                        text: "Gift"
+                        size_hint: 0.3333, 0.3333
+                        on_active: if self.active: root.remove_marks(self, "income_box")
+
+                    MDChip:
+                        id: user
+                        icon_right: "plus"
+                        text: "Custom"
+                        size_hint: 0.3333, 0.3333
+                        # on_active: if self.active: 
+                        on_press:
+                            root.remove_marks(self, "income_box")
+                            app.root.current = "custom_income"
+
+                MDFillRoundFlatButton:
+                    text: "Add income"
+                    md_bg_color: "grey"
+                    pos_hint: {"center_x": 0.5,"center_y": 0.5}
+                    on_release: 
+                        root.add_income_or_spending(amount_income.text, income_box.children, "income_box", datetime.date.today())
+                        root.remove_marks(self, "income_box")
+                        amount_income.text=""
+                        app.root.current = "main"
+
+                MDFillRoundFlatButton:
+                    text: "Back"
+                    md_bg_color: "grey"
+                    pos_hint: {"center_x": 0.5,"center_y": 0.2}
+                    on_release: 
+                        root.remove_marks(self, "income_box")
+                        app.root.current = "main"
+<CustomSpending>:
+
+    GridLayout:
+        rows: 4
+        
+        MDLabel:
+            text: "Add custom spending"
+
+        MDTextField:
+            id: name_spending
+            helper_text: "Enter name"
+            helper_text_mode: "on_error"
+            multiline: False
+            required: True
+
+        MDTextField:
+            id: amount_custom_spending
+            helper_text: "Enter amount"
+            helper_text_mode: "on_error"
+            icon_right: "currency-eur"
+            multiline: False
+            required: True
+
+        MDFillRoundFlatButton:
+            text: "Add spending"
+            md_bg_color: "grey"
+            pos_hint: {"center_x": 0.5,"center_y": 0.5}
+            on_release: 
+                root.add_income_or_spending(name_spending.text, amount_custom_spending.text, "spending", datetime.date.today())
+                amount_custom_spending.text=""
+                name_spending.text=""
+                app.root.current = "main"
+    
+<CustomIncome>:
+
+    GridLayout:
+        rows: 4
+        
+        MDLabel:
+            text: "Add custom source of income"
+
+        MDTextField:
+            id: name_income
+            helper_text: "Enter name"
+            helper_text_mode: "on_error"
+            multiline: False
+            required: True
+
+        MDTextField:
+            id: amount_custom_income
+            helper_text: "Enter amount"
+            helper_text_mode: "on_error"
+            icon_right: "currency-eur"
+            multiline: False
+            required: True
+
+        MDFillRoundFlatButton:
+            text: "Add income"
+            md_bg_color: "grey"
+            pos_hint: {"center_x": 0.5,"center_y": 0.5}
+            on_release: 
+                root.add_income_or_spending(name_income.text, amount_custom_income.text, "income", datetime.date.today())
+                amount_custom_income.text=""
+                name_income.text=""
+                app.root.current = "main"
+    
+<EditSpending>:
+        
+    BoxLayout:
+        orientation: "vertical"
+    
+        MDLabel:
+            text: "Edit spending"
+
+        MDTextField:
+            id: name_spending
+            helper_text: "Enter name"
+            helper_text_mode: "on_error"
+            multiline: False
+            required: True
+
+        MDTextField:
+            id: amount_spending
+            helper_text: "Enter amount"
+            helper_text_mode: "on_error"
+            icon_right: "currency-eur"
+            multiline: False
+            required: True
+        GridLayout:
+            cols: 2
+            rows: 1
+
+            
+            MDFillRoundFlatButton:
+                text: "Edit spending"
+                md_bg_color: "grey"
+                # pos_hint: {"center_x": 0.5,"center_y": 0.5}
+                on_release: 
+                    root.change_income_or_spending(name_spending.text, amount_spending.text)
+                    amount_spending.text=""
+                    name_spending.text=""
+                    app.root.current = "main"
+
+            MDFillRoundFlatButton:
+                text: "Back"
+                md_bg_color: "grey"
+                # pos_hint: {"center_x": 0.5,"center_y": 0.5}
+                on_release: 
+                    amount_spending.text=""
+                    name_spending.text=""
+                    app.root.current = "main"
+
+<EditIncome>:
+        
+    BoxLayout:
+        orientation: "vertical"
+    
+        MDLabel:
+            text: "Edit spending"
+
+        MDTextField:
+            id: name_spending
+            helper_text: "Enter name"
+            helper_text_mode: "on_error"
+            multiline: False
+            required: True
+
+        MDTextField:
+            id: amount_spending
+            helper_text: "Enter amount"
+            helper_text_mode: "on_error"
+            icon_right: "currency-eur"
+            multiline: False
+            required: True
+        GridLayout:
+            cols: 2
+            rows: 1
+
+            
+            MDFillRoundFlatButton:
+                text: "Edit spending"
+                md_bg_color: "grey"
+                # pos_hint: {"center_x": 0.5,"center_y": 0.5}
+                on_release: 
+                    root.change_income_or_spending(name_spending.text, amount_spending.text)
+                    amount_spending.text=""
+                    name_spending.text=""
+                    app.root.current = "main"
+
+            MDFillRoundFlatButton:
+                text: "Back"
+                md_bg_color: "grey"
+                # pos_hint: {"center_x": 0.5,"center_y": 0.5}
+                on_release: 
+                    amount_spending.text=""
+                    name_spending.text=""
+                    app.root.current = "main"
+
+<SettingsScreen>:
+    # MDScrollView:
+    #     MDList:
+    #         id: items
+        # MDLabel:
+        #     text: "Settings"
+        #     halign: "center"
+        #     valign: "center"
+        #     theme_text_color: "Custom"
+        #     text_color: "grey"
+
+        # MDFillRoundFlatButton:
+        #     text: "Back"
+        #     md_bg_color: "grey"
+        #     pos_hint: {"center_x": 0.5,"center_y": 0.3}
+        #     on_release: app.root.current = "main"
+
+<InfoScreen>:
+
+    MDLabel:
+        text: "App info\n\n\tTools\n-Kivy: 2.1.0\n-KivyMD: 1.1.1\n-Matplotlib: 3.6.3\n-Kivy-Garden: 0.1.5\n\n\tAuthor\nDawid Stasiński"
+        halign: "center"
+        valign: "center"
+        theme_text_color: "Custom"
+        text_color: "grey"
+        
+    MDFillRoundFlatButton:
+        text: "Back"
+        md_bg_color: "grey"
+        pos_hint: {"center_x": 0.5,"center_y": 0.3}
+        on_release: app.root.current = "main"
+
+<AppThemeScreen>:
+
+    MDLabel:
+        text: "App themes"
+        halign: "center"
+        valign: "center"
+        theme_text_color: "Custom"
+        text_color: "grey"
+        
+    MDFillRoundFlatButton:
+        text: "Back"
+        md_bg_color: "grey"
+        pos_hint: {"center_x": 0.5,"center_y": 0.3}
+        on_release: app.root.current = "main"
