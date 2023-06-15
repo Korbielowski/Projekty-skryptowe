@@ -5,17 +5,14 @@ from matplotlib import pyplot as plt
 
 from kivy.core.window import Window
 from kivy.storage.jsonstore import JsonStore
-from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
 
 from kivymd.uix.label.label import MDIcon
 from kivy.uix.image import Image
 from kivymd.uix.card import MDCard
 from kivymd.uix.label import MDLabel
-from kivymd.uix.relativelayout import RelativeLayout
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.scrollview import ScrollView
 from kivymd.uix.gridlayout import GridLayout
-from kivymd.uix.boxlayout import BoxLayout
 from kivymd.uix.stacklayout import StackLayout
 from kivymd.uix.button.button import MDFloatingActionButton
 from kivymd.uix.bottomnavigation import MDBottomNavigation, MDBottomNavigationItem
@@ -24,13 +21,6 @@ from kivymd.uix.relativelayout import MDRelativeLayout
 
 
 class MainScreen(MDScreen):
-    # spending_data = JsonStore(
-    #     "spending_data.json"
-    # )  # Dodać żeby było w funkcjach, bo tak to zmienne się nie aktualizują
-    # income_data = JsonStore("income_data.json")
-    # income_by_category = JsonStore("income_by_category_info.json")
-    # spending_by_category = JsonStore("spending_by_category_info.json")
-
     def on_pre_enter(self):
         self.navigation = MDBottomNavigation(
             selected_color_background="orange", text_color_active="lightgrey"
@@ -69,10 +59,8 @@ class MainScreen(MDScreen):
         self.card_grid.bind(minimum_height=self.card_grid.setter("height"))
         self.ids["card_layout"] = self.card_grid
 
-        self.stats_grid = BoxLayout(
-            spacing=5,
-            orientation="vertical",
-        )  # GridLayout(cols=1, spacing=5, size_hint_y=None)
+        self.stats_grid = GridLayout(cols=1, spacing=5, size_hint_y=None)
+
         self.stats_grid.bind(minimum_height=self.stats_grid.setter("height"))
         self.ids["stats_layout"] = self.stats_grid
 
@@ -139,8 +127,6 @@ class MainScreen(MDScreen):
     def load_income_spending(self):
         print("Data loaded")
         spending_income = JsonStore("spending_income.json")
-        # spending_data = JsonStore("spending_data.json")
-        # income_data = JsonStore("income_data.json")
         self.ids.card_layout.clear_widgets()
         for ID in spending_income:
             if spending_income.get(ID)["type"] == "spending":
@@ -182,7 +168,6 @@ class MainScreen(MDScreen):
                         ),
                         id="Card{ID}",
                         line_color=(0.2, 0.2, 0.2, 0.8),
-                        # pos_hint={"left": 1, "top": 1},
                         padding="4dp",
                         size_hint=(1, None),
                         size=("200dp", "100dp"),
@@ -227,7 +212,6 @@ class MainScreen(MDScreen):
                         ),
                         id="Card{ID}",
                         line_color=(0.2, 0.2, 0.2, 0.8),
-                        # pos_hint={"left": 1, "top": 1},
                         padding="4dp",
                         size_hint=(1, None),
                         size=("200dp", "100dp"),
@@ -237,6 +221,71 @@ class MainScreen(MDScreen):
     def load_chart(self, instance=None):
         spending_by_category = JsonStore("spending_by_category_info.json")
         income_by_category = JsonStore("income_by_category_info.json")
+        spending_income = JsonStore("spending_income.json")
+        self.spending_by_month = {
+            "01": 0,
+            "02": 0,
+            "03": 0,
+            "04": 0,
+            "05": 0,
+            "06": 0,
+            "07": 0,
+            "08": 0,
+            "09": 0,
+            "10": 0,
+            "11": 0,
+            "12": 0,
+        }
+        self.income_by_month = {
+            "01": 0,
+            "02": 0,
+            "03": 0,
+            "04": 0,
+            "05": 0,
+            "06": 0,
+            "07": 0,
+            "08": 0,
+            "09": 0,
+            "10": 0,
+            "11": 0,
+            "12": 0,
+        }
+        for ID in spending_income:
+            if spending_income.get(ID)["type"] == "spending":
+                spending_date = spending_income.get(ID)["date"][5:7]
+                for key in self.spending_by_month.keys():
+                    if key == spending_date:
+                        month_amount = self.spending_by_month[key]
+                        self.spending_by_month[key] = -1 * (
+                            month_amount + spending_income.get(ID)["amount"]
+                        )
+            else:
+                income_date = spending_income.get(ID)["date"][5:7]
+                for key in self.income_by_month.keys():
+                    if key == income_date:
+                        month_amount = self.income_by_month[key]
+                        self.income_by_month[key] = (
+                            month_amount + spending_income.get(ID)["amount"]
+                        )
+
+        difference = []
+        for key in self.spending_by_month.keys():
+            difference.append(self.income_by_month[key] + self.spending_by_month[key])
+
+        self.months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+        ]
         self.spending_name_list = []
         self.spending_amount_list = []
         self.income_name_list = []
@@ -253,6 +302,40 @@ class MainScreen(MDScreen):
 
         self.spending_total_amount = sum(self.spending_amount_list)
         self.income_total_amount = sum(self.income_amount_list)
+        self.total_amount = []
+        self.total_amount.append(self.spending_total_amount)
+        self.total_amount.append(self.income_total_amount)
+        self.type = ["Spendings", "Income"]
+        plt.clf()
+        bar_width = 0.25
+        fig, ax = plt.subplots(figsize=(7, 8))
+        ax.bar(
+            self.months,
+            self.spending_by_month.values(),
+            bar_width,
+            label="Spendings",
+            color="crimson",
+        )
+        ax.bar(
+            self.months,
+            self.income_by_month.values(),
+            bar_width,
+            label="Income",
+            color="limegreen",
+        )
+        ax.plot(self.months, difference, color="black", marker="o")
+        ax.axhline(0, color="black", linewidth=1.0)
+        ax.set_title("Spendings and income by months")
+        ax.set_ylabel("zł")
+        ax.legend()
+        plt.xticks(rotation=90)
+        plt.savefig("difference_bar.jpg")
+        image_difference_bar = Image(
+            source="difference_bar.jpg",
+            size_hint=(1, None),
+            size=("1000dp", "500dp"),
+        )
+        image_difference_bar.reload()
         plt.clf()
         plt.pie(
             x=self.spending_amount_list,
@@ -261,40 +344,54 @@ class MainScreen(MDScreen):
             labeldistance=0.3,
             pctdistance=1.2,
         )
-        plt.savefig("pie.jpg")
-        image = Image(
-            source="pie.jpg",
-            allow_stretch=True,
-            size_hint=(1, 1),
+        plt.title("Percentage share of spendings categories")
+        plt.savefig("spendings_pie.jpg")
+        image_spendings_pie = Image(
+            source="spendings_pie.jpg",
+            size_hint=(1, None),
+            size=("1000dp", "500dp"),
         )
-        image.reload()
-        # plt.clf()
-        # width = 0.35
-        # plt.bar(1, self.spending_total_amount, width, label="spendings")
-        # plt.bar(1 + width, self.income_total_amount, width, label="income")
-        # plt.xticks(positions, self.spending_name_list)
-        # plt.legend()
-        # plt.savefig("bar.jpg")
-        # box.add_widget(Image(source="bar.jpg"))
-        # box.add_widget(Image(source="pie.jpg"))
+        image_spendings_pie.reload()
+        plt.clf()
+        plt.pie(
+            x=self.income_amount_list,
+            labels=self.income_name_list,
+            autopct="%1.1f%%",
+            labeldistance=0.3,
+            pctdistance=1.2,
+        )
+        plt.title("Percentage share of income categories")
+        plt.savefig("income_pie.jpg")
+        image_income_pie = Image(
+            source="income_pie.jpg",
+            size_hint=(1, None),
+            size=("1000dp", "500dp"),
+        )
+        image_income_pie.reload()
+        plt.clf()
+        plt.pie(
+            x=self.total_amount,
+            labels=self.type,
+            autopct="%1.1f%%",
+            labeldistance=0.3,
+            pctdistance=1.2,
+        )
+        plt.title("Percentage share of income and spendings")
+        plt.savefig("amount_pie.jpg")
+        image_amount_pie = Image(
+            source="amount_pie.jpg",
+            size_hint=(1, None),
+            size=("1000dp", "500dp"),
+        )
+        image_amount_pie.reload()
         box = self.ids.stats_layout
         box.clear_widgets()
-        box.add_widget(image)
-        # box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
-        # plt.clf()
-        # plt.pie(
-        #     x=self.spending_amount_list,
-        #     labels=self.spending_name_list,
-        #     autopct="%1.1f%%",
-        #     labeldistance=0.3,
-        #     pctdistance=1.2,
-        # )
-        # box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
-        # box.add_widget(MDLabel(text="Hejka"))
-        # print("Loaded chart")
+        box.add_widget(image_difference_bar)
+        box.add_widget(image_amount_pie)
+        box.add_widget(image_spendings_pie)
+        box.add_widget(image_income_pie)
 
     def delete_data(self, instance):
-        # type = ""
         ID = ""
         income_data = JsonStore("income_data.json")
         income_by_category = JsonStore("income_by_category_info.json")
@@ -304,10 +401,8 @@ class MainScreen(MDScreen):
 
         if "income" in instance.id:
             ID = instance.id.strip("income")
-            # type = instance.id.strip(ID)
         elif "spending" in instance.id:
             ID = instance.id.strip("spending")
-            # type = instance.id.strip(ID)
 
         if ID in spending_data:
             new_amount = (
@@ -341,14 +436,12 @@ class MainScreen(MDScreen):
         btn = instance.id.strip("btn")
         edit_screen = EditSpending()
         edit_screen.save_ID_type(btn)
-        # save_ID(btn_ID)
         self.manager.current = "edit_spending_screen"
 
     def change_screen_to_edit_income_screen(self, instance=None):
         btn = instance.id.strip("btn")
         edit_income_screen = EditIncome()
         edit_income_screen.save_ID_type(btn)
-        # save_ID(btn_ID)
         self.manager.current = "edit_income_screen"
 
     def change_screen_to_second(self, instance=None):

@@ -6,6 +6,6 @@ from kivymd.uix.scrollview import MDScrollView
 
 class SettingsScreen(MDScreen):
     def on_enter(self):
-        MDScrollView(MDList(id="list"))
+        self.add_widget(MDScrollView(MDList(id="list")))
         for i in range(20):
             self.ids.list.add_widget(OneLineListItem(text=f"siema {i}"))

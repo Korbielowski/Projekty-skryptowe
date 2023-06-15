@@ -9,7 +9,6 @@ class EditIncome(MDScreen):
         global type
         btn_ID = btn.strip("income")
         type = btn.strip(btn_ID)
-        # print("Wysłane ID:", )
 
     def change_income_or_spending(self, name, amount_sent):
         self.spending_income = JsonStore("spending_income.json")

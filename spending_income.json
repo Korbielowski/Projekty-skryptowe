@@ -1,1 +1,1 @@
-{}
+{"7": {"type": "income", "name": "Gift", "icon": "gift-outline", "amount": 23.0, "date": "2023-06-15"}, "8": {"type": "spending", "name": "Clothes", "icon": "tshirt-crew-outline", "amount": 45.0, "date": "2023-06-15"}, "9": {"type": "spending", "name": "Groceries", "icon": "cart", "amount": 234.0, "date": "2023-08-16"}, "10": {"type": "income", "name": "Gift", "icon": "gift-outline", "amount": 400.0, "date": "2023-07-16"}}
