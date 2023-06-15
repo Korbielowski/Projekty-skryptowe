@@ -1,94 +1,6 @@
 #:kivy 2.1.0
 #:import datetime datetime
 <MainScreen>:
-    # on_enter: print("hejka")
-
-    # MDBottomNavigation:
-    #     selected_color_background: "orange"
-    #     text_color_active: "lightgrey"
-
-    #     MDBottomNavigationItem:
-    #         id: "home"
-    #         name: "home"
-    #         text: "home"
-    #         icon: "home"
-    #         on_enter: root.load_income_spending()
-            
-    #         # ScrollView:
-    #         #     do_scroll_x: False
-    #         #     do_scroll_y: True
-    #         #     # size_hint: 1, None
-    #         #     # size: Window.width, Window.height
-
-    #         #     GridLayout:
-    #         #         id: card_layout
-    #         #         clos: 1
-    #         #         rows: 30
-    #         #         size_hint: 1, None
-    #         #         # minimum_height: 
-                    
-    #         MDFloatingActionButton:
-    #             icon: "plus"
-    #             pos_hint: {"center_x": 0.915,"center_y": 0.06}
-    #             icon_color: "grey"
-    #             md_bg_color: "white"
-    #             on_release: app.root.current = "second"
-
-    #     MDBottomNavigationItem:
-    #         name: "stats"
-    #         text: "stats"
-    #         icon: "chart-bar"
-    #         on_pre_enter:
-    #             root.load_chart()
-
-    #         BoxLayout:
-    #             id: box
-    #             size_hint_y: .8
-    #             pos_hint: {"top":1}
-
-            # MDLabel:
-            #     text: "Charts and stats"
-            #     halign: "center"
-            #     valign: "center"
-            #     theme_text_color: "Custom"
-            #     text_color: "grey"
-
-        # MDBottomNavigationItem:
-        #     name: "more"
-        #     text: "more"
-        #     icon: "dots-horizontal"
-
-        #     StackLayout:
-        #         MDRectangleFlatIconButton:
-        #             icon: "cog"
-        #             text: "Settings"
-        #             size_hint: 0.3333, 0.3333
-        #             theme_text_color: "Custom"
-        #             line_color: "grey"
-        #             text_color: "grey"
-        #             icon_color: "grey"
-        #             on_release: app.root.current = "settings_screen"
-
-        #         MDRectangleFlatIconButton:
-        #             icon: "information"
-        #             text: "Info"
-        #             size_hint: 0.3333, 0.3333
-        #             theme_text_color: "Custom"
-        #             line_color: "grey"
-        #             text_color: "grey"
-        #             icon_color: "grey"
-        #             on_release: app.root.current = "info_screen"
-
-        #         MDRectangleFlatIconButton:
-        #             icon: "palette"
-        #             text: "App Theme"
-        #             size_hint: 0.3333, 0.3333
-        #             theme_text_color: "Custom"
-        #             line_color: "grey"
-        #             text_color: "grey"
-        #             icon_color: "grey"
-        #             on_release: app.root.current = "app_theme_screen"
-
 <SecondScreen>:
     
     MDBottomNavigation:
@@ -232,7 +144,6 @@
                         icon_right: "plus"
                         text: "Custom"
                         size_hint: 0.3333, 0.3333
-                        # on_active: if self.active: 
                         on_press:
                             root.remove_marks(self, "income_box")
                             app.root.current = "custom_income"
@@ -350,7 +261,6 @@
             MDFillRoundFlatButton:
                 text: "Edit spending"
                 md_bg_color: "grey"
-                # pos_hint: {"center_x": 0.5,"center_y": 0.5}
                 on_release: 
                     root.change_income_or_spending(name_spending.text, amount_spending.text)
                     amount_spending.text=""
@@ -360,7 +270,6 @@
             MDFillRoundFlatButton:
                 text: "Back"
                 md_bg_color: "grey"
-                # pos_hint: {"center_x": 0.5,"center_y": 0.5}
                 on_release: 
                     amount_spending.text=""
                     name_spending.text=""
@@ -396,7 +305,6 @@
             MDFillRoundFlatButton:
                 text: "Edit spending"
                 md_bg_color: "grey"
-                # pos_hint: {"center_x": 0.5,"center_y": 0.5}
                 on_release: 
                     root.change_income_or_spending(name_spending.text, amount_spending.text)
                     amount_spending.text=""
@@ -406,7 +314,6 @@
             MDFillRoundFlatButton:
                 text: "Back"
                 md_bg_color: "grey"
-                # pos_hint: {"center_x": 0.5,"center_y": 0.5}
                 on_release: 
                     amount_spending.text=""
                     name_spending.text=""

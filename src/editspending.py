@@ -9,10 +9,8 @@ class EditSpending(MDScreen):
         global type
         btn_ID = btn.strip("spending")
         type = btn.strip(btn_ID)
-        # print("Wysłane ID:", )
 
     def change_income_or_spending(self, name, amount_sent):
-        # btn_ID = load_ID()
         self.spending_income = JsonStore("spending_income.json")
         self.stored_spending_or_income = JsonStore("spending_data.json")
         self.spending_or_income_category_info = JsonStore(
@@ -57,4 +55,3 @@ class EditSpending(MDScreen):
                     self.name, amount=self.amount_from_category - self.amount_get
                 )
                 self.spending_or_income_category_info.put(name, amount_sent)
-            # self.manager.current = "main"

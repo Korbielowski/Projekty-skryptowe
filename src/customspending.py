@@ -8,7 +8,6 @@ from kivymd.uix.screen import MDScreen
 class CustomSpending(MDScreen):
     ID = 0
     ID_file = open("ID.txt", "r")
-    # category_info_file = open("category_info.txt", "w+")
 
     if os.stat("ID.txt").st_size > 0:
         ID = int(ID_file.read())
