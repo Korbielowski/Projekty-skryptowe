@@ -20,3 +20,6 @@ Project Plan:
 - June:
     1. Bug fixing
     2. creating a project presentation
+ 
+Presentation of the project on Youtube: 
+https://youtu.be/BalWYAvT-CI
