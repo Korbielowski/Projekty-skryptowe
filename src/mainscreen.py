@@ -1,23 +1,23 @@
-from editspending import EditSpending
 from editincome import EditIncome
+from editspending import EditSpending
 
 from matplotlib import pyplot as plt
 
 from kivy.core.window import Window
 from kivy.storage.jsonstore import JsonStore
 
-from kivymd.uix.label.label import MDIcon
 from kivy.uix.image import Image
 from kivymd.uix.card import MDCard
 from kivymd.uix.label import MDLabel
 from kivymd.uix.screen import MDScreen
-from kivymd.uix.scrollview import ScrollView
+from kivymd.uix.label.label import MDIcon
 from kivymd.uix.gridlayout import GridLayout
+from kivymd.uix.scrollview import ScrollView
 from kivymd.uix.stacklayout import StackLayout
+from kivymd.uix.relativelayout import MDRelativeLayout
+from kivymd.uix.button import MDRectangleFlatIconButton
 from kivymd.uix.button.button import MDFloatingActionButton
 from kivymd.uix.bottomnavigation import MDBottomNavigation, MDBottomNavigationItem
-from kivymd.uix.button import MDRectangleFlatIconButton
-from kivymd.uix.relativelayout import MDRelativeLayout
 
 
 class MainScreen(MDScreen):
@@ -306,8 +306,9 @@ class MainScreen(MDScreen):
         self.total_amount.append(self.spending_total_amount)
         self.total_amount.append(self.income_total_amount)
         self.type = ["Spendings", "Income"]
-        plt.clf()
         bar_width = 0.25
+        plt.clf()
+        plt.style.use("ggplot")
         fig, ax = plt.subplots(figsize=(7, 8))
         ax.bar(
             self.months,

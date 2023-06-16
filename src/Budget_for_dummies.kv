@@ -168,7 +168,7 @@
 <CustomSpending>:
 
     GridLayout:
-        rows: 4
+        rows: 5
         
         MDLabel:
             text: "Add custom spending"
@@ -188,20 +188,32 @@
             multiline: False
             required: True
 
-        MDFillRoundFlatButton:
-            text: "Add spending"
-            md_bg_color: "grey"
-            pos_hint: {"center_x": 0.5,"center_y": 0.5}
-            on_release: 
-                root.add_income_or_spending(name_spending.text, amount_custom_spending.text, "spending", datetime.date.today())
-                amount_custom_spending.text=""
-                name_spending.text=""
-                app.root.current = "main"
+        GridLayout:
+            cols: 2
+
+            MDFillRoundFlatButton:
+                text: "Add spending"
+                md_bg_color: "grey"
+                pos_hint: {"center_x": 0.5,"center_y": 0.5}
+                on_release: 
+                    root.add_income_or_spending(name_spending.text, amount_custom_spending.text, "spending", datetime.date.today())
+                    amount_custom_spending.text=""
+                    name_spending.text=""
+                    app.root.current = "main"
+                    
+            MDFillRoundFlatButton:
+                text: "Back"
+                md_bg_color: "grey"
+                pos_hint: {"center_x": 0.7,"center_y": 0.5}
+                on_release: 
+                    amount_custom_spending.text=""
+                    name_spending.text=""
+                    app.root.current = "main"
     
 <CustomIncome>:
 
     GridLayout:
-        rows: 4
+        rows: 5
         
         MDLabel:
             text: "Add custom source of income"
@@ -221,16 +233,28 @@
             multiline: False
             required: True
 
-        MDFillRoundFlatButton:
-            text: "Add income"
-            md_bg_color: "grey"
-            pos_hint: {"center_x": 0.5,"center_y": 0.5}
-            on_release: 
-                root.add_income_or_spending(name_income.text, amount_custom_income.text, "income", datetime.date.today())
-                amount_custom_income.text=""
-                name_income.text=""
-                app.root.current = "main"
-    
+        GridLayout:
+            cols: 2
+            
+            MDFillRoundFlatButton:
+                text: "Add income"
+                md_bg_color: "grey"
+                pos_hint: {"center_x": 0.5,"center_y": 0.5}
+                on_release: 
+                    root.add_income_or_spending(name_income.text, amount_custom_income.text, "income", datetime.date.today())
+                    amount_custom_income.text=""
+                    name_income.text=""
+                    app.root.current = "main"
+
+            MDFillRoundFlatButton:
+                text: "Back"
+                md_bg_color: "grey"
+                pos_hint: {"center_x": 0.7,"center_y": 0.5}
+                on_release: 
+                    amount_custom_spending.text=""
+                    name_spending.text=""
+                    app.root.current = "main"
+        
 <EditSpending>:
         
     BoxLayout:

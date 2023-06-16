@@ -29,7 +29,11 @@ class EditIncome(MDScreen):
                 self.name
             )["amount"]
             self.stored_spending_or_income.put(
-                btn_ID, name=name, icon=self.icon, amount=self.amount, date=self.date
+                btn_ID,
+                name=name,
+                icon=self.icon,
+                amount=self.amount,
+                date=self.date,
             )
             self.spending_income.put(
                 btn_ID,
@@ -50,4 +54,4 @@ class EditIncome(MDScreen):
                 self.spending_or_income_category_info.put(
                     self.name, amount=self.amount_from_category - self.amount_get
                 )
-                self.spending_or_income_category_info.put(name, amount_sent)
+                self.spending_or_income_category_info.put(name, amount=self.amount)
