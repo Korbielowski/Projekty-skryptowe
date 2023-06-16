@@ -54,4 +54,4 @@ class EditSpending(MDScreen):
                 self.spending_or_income_category_info.put(
                     self.name, amount=self.amount_from_category - self.amount_get
                 )
-                self.spending_or_income_category_info.put(name, amount_sent)
+                self.spending_or_income_category_info.put(name, amount=self.amount)

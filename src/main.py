@@ -1,11 +1,11 @@
-from appthemescreen import AppThemeScreen
-from customincome import CustomIncome
-from customspending import CustomSpending
 from editincome import EditIncome
-from editspending import EditSpending
 from infoscreen import InfoScreen
 from mainscreen import MainScreen
+from customincome import CustomIncome
+from editspending import EditSpending
 from secondscreen import SecondScreen
+from appthemescreen import AppThemeScreen
+from customspending import CustomSpending
 from settingsscreen import SettingsScreen
 
 from kivy.lang import Builder
