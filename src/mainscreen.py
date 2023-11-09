@@ -385,12 +385,12 @@ class MainScreen(MDScreen):
             size=("1000dp", "500dp"),
         )
         image_amount_pie.reload()
-        box = self.ids.stats_layout
-        box.clear_widgets()
-        box.add_widget(image_difference_bar)
-        box.add_widget(image_amount_pie)
-        box.add_widget(image_spendings_pie)
-        box.add_widget(image_income_pie)
+        box_layout = self.ids.stats_layout
+        box_layout.clear_widgets()
+        box_layout.add_widget(image_difference_bar)
+        box_layout.add_widget(image_amount_pie)
+        box_layout.add_widget(image_spendings_pie)
+        box_layout.add_widget(image_income_pie)
 
     def delete_data(self, instance):
         ID = ""

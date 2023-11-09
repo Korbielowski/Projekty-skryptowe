@@ -1,0 +1,8 @@
+*.jpg
+*.json
+ID.txt
+currency.txt
+
+venv/
+.vscode/
+__pycache__/

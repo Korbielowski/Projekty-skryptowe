@@ -36,8 +36,6 @@ class Budget_for_dummies(MDApp):
         return sm
 
 
-sm = ScreenManager()
-
-
 if __name__ == "__main__":
+    sm = ScreenManager()
     Budget_for_dummies().run()
